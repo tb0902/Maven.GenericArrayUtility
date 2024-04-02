@@ -1,10 +1,8 @@
 package com.zipcodewilmington.arrayutility;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.security.Key;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -26,20 +24,47 @@ public class ArrayUtility<T> {
       }
     }
 
-      for (T item2 : inputArray) {
-        if (item2 == valueToEvaluate) {
-          counter++;
-        }
+    for (T item2 : inputArray) {
+      if (item2 == valueToEvaluate) {
+        counter++;
+      }
     }
     return counter;
   }
 
   public Integer getNumberOfOccurrences(T valueToEvaluate) {
-    return 0;
+    Integer counter = 0;
+    for (T item1 : inputArray) {
+      if (item1 == valueToEvaluate) {
+        counter++;
+      }
+    }
+    return counter;
   }
 
-  public Integer getMostCommonFromMerge(T[] arrayToMerge) {
-    return null;
+  public T getMostCommonFromMerge(T[] arrayToMerge) {
+    ArrayList<T> mergedArrayList = new ArrayList<>(Arrays.asList(arrayToMerge));
+    mergedArrayList.addAll(Arrays.asList(inputArray));
+
+    HashMap<T, Integer> map = new HashMap<>();
+    T keyToRet = null;
+    for (T key : mergedArrayList) { // for every key in the array
+      if (!map.containsKey(key)) {
+        map.put(key, 0);
+      } else {
+        map.put(key, map.get(key)+1);
+      }
+    }
+    Integer value = 0;
+    for (Map.Entry<T, Integer> entry : map.entrySet()) {
+
+
+      if (entry.getValue() > value) {
+        value = entry.getValue();
+        keyToRet = entry.getKey();
+      }
+    }
+    return keyToRet;
   }
 
   public Integer[] removeValue(T valueToRemove) {
