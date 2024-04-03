@@ -67,7 +67,16 @@ public class ArrayUtility<T> {
     return keyToRet;
   }
 
-  public Integer[] removeValue(T valueToRemove) {
-    return null;
+  public T[] removeValue(T valueToRemove) {
+
+    ArrayList<T> newList = new ArrayList<>(Arrays.asList(inputArray));
+
+    for (int i = 0; i < newList.size(); i++) {
+        if (newList.get(i) == valueToRemove) {
+          newList.remove(valueToRemove);
+        }
+    }
+    T[] array = newList.toArray((T[]) Array.newInstance(valueToRemove.getClass(), newList.size())); // reflection to turn it back to array : )
+    return array;
   }
 }
